@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Sois ma Valentine 💖</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 45px 55px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            animation: popIn 0.8s ease;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.85); opacity: 0; }
+            to   { transform: scale(1); opacity: 1; }
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 36px;
+            color: #ff4f8b;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 20px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #oui {
+            background-color: #4CAF50;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        #oui:hover {
+            transform: scale(1.05);
+        }
+
+        #non {
+            background-color: #f44336;
+            color: white;
+            position: relative;
+        }
+
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            from { transform: translateY(100vh) scale(1); opacity: 1; }
+            to   { transform: translateY(-10vh) scale(0.4); opacity: 0; }
+        }
+
+        .labubu {
+            position: fixed;
+            bottom: 12px;
+            right: 16px;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Mon cœur 💖</h1>
+    <div class="subtitle">
+        Veux-tu être ma Valentine ? 💘<br>
+        <strong>LABUBUUU 🐰🖤</strong>
+    </div>
+
+    <div class="buttons">
+        <button id="oui" onclick="ouiClicked()">Ouiii 💞</button>
+        <button id="non">Non 💔</button>
+    </div>
+</div>
+
+<div class="labubu">LABUBU FOREVER 🐰🖤</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+    const nonButton = document.getElementById("non");
+    const ouiButton = document.getElementById("oui");
+    let scale = 1;
+
+    nonButton.addEventListener("mouseover", () => {
+        nonButton.style.position = "fixed";
+
+        const x = Math.random() * (window.innerWidth - nonButton.offsetWidth - 20);
+        const y = Math.random() * (window.innerHeight - nonButton.offsetHeight - 20);
+
+        nonButton.style.left = x + "px";
+        nonButton.style.top = y + "px";
+
+        scale += 0.12;
+        ouiButton.style.transform = `scale(${scale})`;
+    });
+
+    function ouiClicked() {
+        document.body.innerHTML = `
+            <div style="
+                height:100vh;
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                align-items:center;
+                background: linear-gradient(135deg, #ff758c, #ff7eb3);
+                color: white;
+                text-align:center;
+                padding:30px;
+                font-family:'Poppins', sans-serif;
+            ">
+                <div style="
+                    font-size:42px;
+                    font-family:'Pacifico', cursive;
+                    margin-bottom:20px;
+                ">
+                    Yay 🥰
+                </div>
+
+                <div style="font-size:22px; max-width:600px; line-height:1.6;">
+                    Merci de dire oui. Tu rends ma vie plus belle juste en étant toi.<br><br>
+                    Je suis tellement chanceux de t’avoir et j’ai hâte de créer encore plein de souvenirs avec toi.<br><br>
+                    <strong>Je t’aime. 💖</strong>
+                </div>
+
+                <div style="margin-top:30px; font-size:18px; opacity:0.9;">
+                    LABUBUUU 🐰🖤
+                </div>
+            </div>
+        `;
+
+        confetti({
+            particleCount: 250,
+            spread: 90,
+            origin: { y: 0.6 }
+        });
+    }
+
+    function createHearts() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = ["💖","💘","💞","❤️","💕","🐰"][Math.floor(Math.random() * 6)];
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.fontSize = (18 + Math.random() * 30) + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHearts, 450);
+</script>
+
+</body>
+</html>
